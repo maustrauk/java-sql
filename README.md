@@ -143,7 +143,7 @@ SET postal_code = '11122'
 WHERE contact_name = 'Bilbo Baggins';
 ```
 
-* [ ] ***list orders grouped and ordered by customer company name showing the number of orders per customer company name. _Rattlesnake Canyon Grocery_ should have 18 orders***
+* [*] ***list orders grouped and ordered by customer company name showing the number of orders per customer company name. _Rattlesnake Canyon Grocery_ should have 18 orders***
 
   <details><summary>hint</summary>
 
@@ -152,7 +152,11 @@ WHERE contact_name = 'Bilbo Baggins';
   </details>
 
 ```SQL
-
+SELECT customers.company_name, COUNT(orders.customer_id)
+FROM orders
+INNER JOIN customers ON orders.customer_id = customers.customer_id
+GROUP BY customers.company_name
+ORDER BY customers.company_name
 ```
 
 * [ ] ***list customers by contact name and the number of orders per contact name. Sort the list by the number of orders in descending order. _Jose Pavarotti_ should be at the top with 31 orders followed by _Roland Mendal_ with 30 orders. Last should be _Francisco Chang_ with 1 order***
