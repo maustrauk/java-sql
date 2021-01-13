@@ -29,7 +29,7 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
 
 ### Answer the following data queries. Keep track of the SQL you write by pasting it into this document under its appropriate header below in the provided SQL code block. You will be submitting that through the regular fork, change, pull process
 
-* [ ] ***find all customers that live in London. Returns 6 records***
+* [*] ***find all customers that live in London. Returns 6 records***
 
   <details><summary>hint</summary>
 
@@ -44,7 +44,7 @@ WHERE city = 'London'
 
 ```
 
-* [ ] ***find all customers with postal code 1010. Returns 3 customers***
+* [*] ***find all customers with postal code 1010. Returns 3 customers***
 
   <details><summary>hint</summary>
 
@@ -52,7 +52,9 @@ WHERE city = 'London'
   </details>
 
 ```SQL
-
+SELECT *
+FROM customers
+WHERE postal_code = '1010'
 ```
 
 * [ ] ***find the phone number for the supplier with the id 11. Should be (010) 9984510***
