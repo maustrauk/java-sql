@@ -130,7 +130,7 @@ INSERT INTO customers
 VALUES ('SHIRE', 'The Shire', 'Bilbo Baggins', null, '1 Hobbit-Hole', 'Bag End', null, '111', 'Middle Earth' , null, null)
 ```
 
-* [ ] ***update _Bilbo Baggins_ record so that the postal code changes to _"11122"_***
+* [*] ***update _Bilbo Baggins_ record so that the postal code changes to _"11122"_***
 
   <details><summary>hint</summary>
 
@@ -138,7 +138,9 @@ VALUES ('SHIRE', 'The Shire', 'Bilbo Baggins', null, '1 Hobbit-Hole', 'Bag End',
   </details>
 
 ```SQL
-
+UPDATE customers
+SET postal_code = '11122'
+WHERE contact_name = 'Bilbo Baggins';
 ```
 
 * [ ] ***list orders grouped and ordered by customer company name showing the number of orders per customer company name. _Rattlesnake Canyon Grocery_ should have 18 orders***
