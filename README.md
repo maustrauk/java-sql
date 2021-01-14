@@ -29,7 +29,7 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
 
 ### Answer the following data queries. Keep track of the SQL you write by pasting it into this document under its appropriate header below in the provided SQL code block. You will be submitting that through the regular fork, change, pull process
 
-* [ ] ***find all customers that live in London. Returns 6 records***
+* [*] ***find all customers that live in London. Returns 6 records***
 
   <details><summary>hint</summary>
 
@@ -38,9 +38,13 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
 
 ```SQL
 
+SELECT *
+FROM customers
+WHERE city = 'London'
+
 ```
 
-* [ ] ***find all customers with postal code 1010. Returns 3 customers***
+* [*] ***find all customers with postal code 1010. Returns 3 customers***
 
   <details><summary>hint</summary>
 
@@ -48,10 +52,12 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
   </details>
 
 ```SQL
-
+SELECT *
+FROM customers
+WHERE postal_code = '1010'
 ```
 
-* [ ] ***find the phone number for the supplier with the id 11. Should be (010) 9984510***
+* [*] ***find the phone number for the supplier with the id 11. Should be (010) 9984510***
 
   <details><summary>hint</summary>
 
@@ -59,10 +65,12 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
   </details>
 
 ```SQL
-
+SELECT phone
+FROM suppliers
+WHERE supplier_id = 11
 ```
 
-* [ ] ***list orders descending by the order date. The order with date 1998-05-06 should be at the top***
+* [*] ***list orders descending by the order date. The order with date 1998-05-06 should be at the top***
 
   <details><summary>hint</summary>
 
@@ -70,10 +78,12 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
   </details>
 
 ```SQL
-
+SELECT *
+FROM orders
+ORDER BY order_date DESC
 ```
 
-* [ ] ***find all suppliers who have names longer than 20 characters. Returns 11 records***
+* [*] ***find all suppliers who have names longer than 20 characters. Returns 11 records***
 
   <details><summary>hint</summary>
 
@@ -82,10 +92,12 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
   </details>
 
 ```SQL
-
+SELECT *
+FROM suppliers
+WHERE length(company_name) > 20
 ```
 
-* [ ] ***find all customers that include the word 'MARKET' in the contact title. Should return 19 records***
+* [*] ***find all customers that include the word 'MARKET' in the contact title. Should return 19 records***
 
   <details><summary>hint</summary>
 
@@ -95,10 +107,12 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
   </details>
 
 ```SQL
-
+SELECT *
+FROM customers 
+WHERE upper (contact_title) LIKE '%MARKET%'
 ```
 
-* [ ] ***add a customer record for***
+* [*] ***add a customer record for***
 * customer id is 'SHIRE'
 * company name is 'The Shire'
 * contact name is 'Bilbo Baggins'
@@ -112,10 +126,11 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
   </details>
 
 ```SQL
-
+INSERT INTO customers
+VALUES ('SHIRE', 'The Shire', 'Bilbo Baggins', null, '1 Hobbit-Hole', 'Bag End', null, '111', 'Middle Earth' , null, null)
 ```
 
-* [ ] ***update _Bilbo Baggins_ record so that the postal code changes to _"11122"_***
+* [*] ***update _Bilbo Baggins_ record so that the postal code changes to _"11122"_***
 
   <details><summary>hint</summary>
 
@@ -123,10 +138,12 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
   </details>
 
 ```SQL
-
+UPDATE customers
+SET postal_code = '11122'
+WHERE contact_name = 'Bilbo Baggins';
 ```
 
-* [ ] ***list orders grouped and ordered by customer company name showing the number of orders per customer company name. _Rattlesnake Canyon Grocery_ should have 18 orders***
+* [*] ***list orders grouped and ordered by customer company name showing the number of orders per customer company name. _Rattlesnake Canyon Grocery_ should have 18 orders***
 
   <details><summary>hint</summary>
 
@@ -135,10 +152,14 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
   </details>
 
 ```SQL
-
+SELECT customers.company_name, COUNT(orders.customer_id)
+FROM orders
+INNER JOIN customers ON orders.customer_id = customers.customer_id
+GROUP BY customers.company_name
+ORDER BY customers.company_name
 ```
 
-* [ ] ***list customers by contact name and the number of orders per contact name. Sort the list by the number of orders in descending order. _Jose Pavarotti_ should be at the top with 31 orders followed by _Roland Mendal_ with 30 orders. Last should be _Francisco Chang_ with 1 order***
+* [*] ***list customers by contact name and the number of orders per contact name. Sort the list by the number of orders in descending order. _Jose Pavarotti_ should be at the top with 31 orders followed by _Roland Mendal_ with 30 orders. Last should be _Francisco Chang_ with 1 order***
 
   <details><summary>hint</summary>
 
@@ -146,10 +167,14 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
   </details>
 
 ```SQL
-
+SELECT customers.contact_name, COUNT(orders.customer_id)
+FROM orders
+INNER JOIN customers ON orders.customer_id = customers.customer_id
+GROUP BY customers.contact_name
+ORDER BY COUNT(orders.customer_id) DESC
 ```
 
-* [ ] ***list orders grouped by customer's city showing the number of orders per city. Returns 69 Records with _Aachen_ showing 6 orders and _Albuquerque_ showing 18 orders***
+* [*] ***list orders grouped by customer's city showing the number of orders per city. Returns 69 Records with _Aachen_ showing 6 orders and _Albuquerque_ showing 18 orders***
 
   <details><summary>hint</summary>
 
@@ -157,14 +182,18 @@ Reimport the Northwind database into PostgreSQL using pgAdmin. This is the same 
   </details>
 
 ```SQL
-
+SELECT customers.city, COUNT(orders.customer_id)
+FROM orders
+INNER JOIN customers ON orders.customer_id = customers.customer_id
+GROUP BY customers.city
+ORDER BY customers.city
 ```
 
 ## Data Normalization
 
 Note: This step does not use PostgreSQL!
 
-* [ ] ***Take the following data and normalize it into a 3NF database***
+* [*] ***Take the following data and normalize it into a 3NF database***
 
 | Person Name | Pet Name | Pet Type | Pet Name 2 | Pet Type 2 | Pet Name 3 | Pet Type 3 | Fenced Yard | City Dweller |
 |-------------|----------|----------|------------|------------|------------|------------|-------------|--------------|
@@ -177,65 +206,65 @@ Below are some empty tables to be used to normalize the database
 * Not all of the cells will contain data in the final solution
 * Feel free to edit these tables as necessary
 
-Table Name:
+Table Name: Persons
 
-|            |            |            |            |            |            |            |            |            |
-|------------|------------|------------|------------|------------|------------|------------|------------|------------|
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
+| Person ID  | Person Name | Property ID |
+|------------|-------------|-------------|
+|     1      |     Jane    |      1      |
+|     2      |     Bob     |      2      |
+|     3      |     Sam     |      3      |
 
-Table Name:
+Table Name: Properties
 
-|            |            |            |            |            |            |            |            |            |
-|------------|------------|------------|------------|------------|------------|------------|------------|------------|
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
+| Property ID | Fenced Yard | City Dweller |
+|-------------|-------------|--------------|
+|      1      |      No     |     Yes      |
+|      2      |      No     |     No       |
+|      3      |      Yes    |     No       |
+|      4      |      Yes    |     Yes      |
 
-Table Name:
+Table Name: Pet names
 
-|            |            |            |            |            |            |            |            |            |
-|------------|------------|------------|------------|------------|------------|------------|------------|------------|
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
+| Person ID |  Pet Name  | Pet Type ID | 
+|-----------|------------|-------------|
+|     1     |  Ellie     |     1       |
+|     1     |  Tiger     |     2       |
+|     1     |  Toby      |     3       |
+|     2     |  Joe       |     4       |
+|     3     |  Ginger    |     1       |
+|     3     | Miss Kitty |     2       |
+|     3     |  Bubble    |     5       |
 
-Table Name:
+Table Name: Pet types
 
-|            |            |            |            |            |            |            |            |            |
-|------------|------------|------------|------------|------------|------------|------------|------------|------------|
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
+| Pet Type ID | Pet Type Name | 
+|-------------|---------------|
+|      1      |     Dog       | 
+|      2      |     Cat       |
+|      3      |    Turtle     | 
+|      4      |    Horse      | 
+|      5      |     Fish      | 
+
 
 ---
 
 ### Stretch Goals
 
-* [ ] ***delete all customers that have no orders. Should delete 2 (or 3 if you haven't deleted the record added) records***
+* [*] ***delete all customers that have no orders. Should delete 2 (or 3 if you haven't deleted the record added) records***
 
 ```SQL
-
+DELETE
+FROM customers
+WHERE customer_id IN
+(
+	SELECT customers.customer_id
+	FROM customers
+	LEFT JOIN orders ON customers.customer_id = orders.customer_id
+	WHERE orders.order_id is NULL
+);
 ```
 
-* [ ] ***Create Database and Table: After creating the database, tables, columns, and constraint, generate the script necessary to recreate the database. This script is what you will submit for review***
+* [*] ***Create Database and Table: After creating the database, tables, columns, and constraint, generate the script necessary to recreate the database. This script is what you will submit for review***
 
 * use pgAdmin to create a database, naming it `budget`.
 * add an `accounts` table with the following _schema_:
@@ -250,6 +279,78 @@ Table Name:
   * account `budget` is required.
 
 ```SQL
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.1
+-- Dumped by pg_dump version 13.1
+
+-- Started on 2021-01-13 20:27:25
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 200 (class 1259 OID 16897)
+-- Name: accounts ; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."accounts " (
+    id integer NOT NULL,
+    name "char"[],
+    "budget " double precision NOT NULL
+);
+
+
+ALTER TABLE public."accounts " OWNER TO postgres;
+
+--
+-- TOC entry 2983 (class 0 OID 16897)
+-- Dependencies: 200
+-- Data for Name: accounts ; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."accounts " (id, name, "budget ") FROM stdin;
+\.
+
+
+--
+-- TOC entry 2850 (class 2606 OID 16904)
+-- Name: accounts  id; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."accounts "
+    ADD CONSTRAINT id PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2852 (class 2606 OID 16906)
+-- Name: accounts  name; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."accounts "
+    ADD CONSTRAINT name UNIQUE (name);
+
+
+-- Completed on 2021-01-13 20:27:25
+
+--
+-- PostgreSQL database dump complete
+--
+
 
 ```
 
