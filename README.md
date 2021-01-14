@@ -264,7 +264,7 @@ WHERE customer_id IN
 );
 ```
 
-* [ ] ***Create Database and Table: After creating the database, tables, columns, and constraint, generate the script necessary to recreate the database. This script is what you will submit for review***
+* [*] ***Create Database and Table: After creating the database, tables, columns, and constraint, generate the script necessary to recreate the database. This script is what you will submit for review***
 
 * use pgAdmin to create a database, naming it `budget`.
 * add an `accounts` table with the following _schema_:
@@ -279,6 +279,78 @@ WHERE customer_id IN
   * account `budget` is required.
 
 ```SQL
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.1
+-- Dumped by pg_dump version 13.1
+
+-- Started on 2021-01-13 20:27:25
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 200 (class 1259 OID 16897)
+-- Name: accounts ; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."accounts " (
+    id integer NOT NULL,
+    name "char"[],
+    "budget " double precision NOT NULL
+);
+
+
+ALTER TABLE public."accounts " OWNER TO postgres;
+
+--
+-- TOC entry 2983 (class 0 OID 16897)
+-- Dependencies: 200
+-- Data for Name: accounts ; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."accounts " (id, name, "budget ") FROM stdin;
+\.
+
+
+--
+-- TOC entry 2850 (class 2606 OID 16904)
+-- Name: accounts  id; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."accounts "
+    ADD CONSTRAINT id PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2852 (class 2606 OID 16906)
+-- Name: accounts  name; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."accounts "
+    ADD CONSTRAINT name UNIQUE (name);
+
+
+-- Completed on 2021-01-13 20:27:25
+
+--
+-- PostgreSQL database dump complete
+--
+
 
 ```
 
