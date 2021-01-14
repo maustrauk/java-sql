@@ -193,7 +193,7 @@ ORDER BY customers.city
 
 Note: This step does not use PostgreSQL!
 
-* [ ] ***Take the following data and normalize it into a 3NF database***
+* [*] ***Take the following data and normalize it into a 3NF database***
 
 | Person Name | Pet Name | Pet Type | Pet Name 2 | Pet Type 2 | Pet Name 3 | Pet Type 3 | Fenced Yard | City Dweller |
 |-------------|----------|----------|------------|------------|------------|------------|-------------|--------------|
@@ -206,53 +206,45 @@ Below are some empty tables to be used to normalize the database
 * Not all of the cells will contain data in the final solution
 * Feel free to edit these tables as necessary
 
-Table Name:
+Table Name: Persons
 
-|            |            |            |            |            |            |            |            |            |
-|------------|------------|------------|------------|------------|------------|------------|------------|------------|
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
+| Person ID  | Person Name | Property ID |
+|------------|-------------|-------------|
+|     1      |     Jane    |      1      |
+|     2      |     Bob     |      2      |
+|     3      |     Sam     |      3      |
 
-Table Name:
+Table Name: Properties
 
-|            |            |            |            |            |            |            |            |            |
-|------------|------------|------------|------------|------------|------------|------------|------------|------------|
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
+| Property ID | Fenced Yard | City Dweller |
+|-------------|-------------|--------------|
+|      1      |      No     |     Yes      |
+|      2      |      No     |     No       |
+|      3      |      Yes    |     No       |
+|      4      |      Yes    |     Yes      |
 
-Table Name:
+Table Name: Pet names
 
-|            |            |            |            |            |            |            |            |            |
-|------------|------------|------------|------------|------------|------------|------------|------------|------------|
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
+| Person ID |  Pet Name  | Pet Type ID | 
+|-----------|------------|-------------|
+|     1     |  Ellie     |     1       |
+|     1     |  Tiger     |     2       |
+|     1     |  Toby      |     3       |
+|     2     |  Joe       |     4       |
+|     3     |  Ginger    |     1       |
+|     3     | Miss Kitty |     2       |
+|     3     |  Bubble    |     5       |
 
-Table Name:
+Table Name: Pet types
 
-|            |            |            |            |            |            |            |            |            |
-|------------|------------|------------|------------|------------|------------|------------|------------|------------|
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
-|            |            |            |            |            |            |            |            |            |
+| Pet Type ID | Pet Type Name | 
+|-------------|---------------|
+|      1      |     Dog       | 
+|      2      |     Cat       |
+|      3      |    Turtle     | 
+|      4      |    Horse      | 
+|      5      |     Fish      | 
+
 
 ---
 
