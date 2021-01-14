@@ -250,10 +250,18 @@ Table Name: Pet types
 
 ### Stretch Goals
 
-* [ ] ***delete all customers that have no orders. Should delete 2 (or 3 if you haven't deleted the record added) records***
+* [*] ***delete all customers that have no orders. Should delete 2 (or 3 if you haven't deleted the record added) records***
 
 ```SQL
-
+DELETE
+FROM customers
+WHERE customer_id IN
+(
+	SELECT customers.customer_id
+	FROM customers
+	LEFT JOIN orders ON customers.customer_id = orders.customer_id
+	WHERE orders.order_id is NULL
+);
 ```
 
 * [ ] ***Create Database and Table: After creating the database, tables, columns, and constraint, generate the script necessary to recreate the database. This script is what you will submit for review***
